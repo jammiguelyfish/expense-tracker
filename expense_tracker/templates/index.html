@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Expense Tracker</h1>
+      <form action="/add" method="post" class="add-form">
+        <input name="date" placeholder="YYYY-MM-DD">
+        <input name="amount" placeholder="Amount" required>
+        <input name="category" placeholder="Category" required>
+        <input name="description" placeholder="Description">
+        <button type="submit">Add</button>
+      </form>
+
+      <h2>Total: {{ '%.2f'|format(total) }}</h2>
+
+      <table>
+        <thead><tr><th>ID</th><th>Date</th><th>Amount</th><th>Category</th><th>Description</th><th>Action</th></tr></thead>
+        <tbody>
+        {% for e in expenses %}
+          <tr>
+            <td>{{ e.id }}</td>
+            <td>{{ e.date }}</td>
+            <td>{{ '%.2f'|format(e.amount) }}</td>
+            <td>{{ e.category }}</td>
+            <td>{{ e.description }}</td>
+            <td>
+              <form action="/delete/{{ e.id }}" method="post" style="display:inline">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+  </html>

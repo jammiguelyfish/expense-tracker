@@ -1,0 +1,6 @@
+body { font-family: Arial, sans-serif; background:#f7f7f7; padding:20px }
+.container { max-width:900px; margin:0 auto; background:white; padding:20px; box-shadow:0 2px 6px rgba(0,0,0,0.1) }
+.add-form input { margin-right:6px; padding:6px }
+table { width:100%; border-collapse:collapse; margin-top:12px }
+th,td { text-align:left; padding:8px; border-bottom:1px solid #eee }
+button { padding:6px 10px }
