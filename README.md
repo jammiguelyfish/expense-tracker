@@ -1,6 +1,6 @@
 # Expense Tracker
 
-Simple expense tracker with CSV and SQLite backends and a small CLI.
+Simple personal expense tracker application 
 
 Requirements:
 
@@ -52,3 +52,4 @@ Files of interest:
 - `expense_tracker/static/style.css` - styles used by the web interface.
 
 If you want to run the app with a different database path, modify `create_app()` in `expense_tracker/webapp.py` when creating the app, or run a small wrapper that passes a different `db_path`.
+
