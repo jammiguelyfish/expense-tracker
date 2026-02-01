@@ -15,9 +15,26 @@ def create_app(db_path='data/web_expenses.db'):
 
     @app.route('/add', methods=['POST'])
     def add():
-        amount = float(request.form['amount'])
-        category = request.form['category']
-        date = request.form.get('date') or datetime.utcnow().date().isoformat()
+        try:
+            amount = float(request.form['amount'])
+            if amount <= 0:
+                raise ValueError("Amount must be positive")
+        except (ValueError, KeyError):
+            return redirect(url_for('index'))
+        
+        category = request.form.get('category', '').strip()
+        if not category:
+            return redirect(url_for('index'))
+        
+        date = request.form.get('date', '').strip()
+        if date:
+            try:
+                datetime.fromisoformat(date)
+            except ValueError:
+                return redirect(url_for('index'))
+        else:
+            date = datetime.utcnow().date().isoformat()
+        
         description = request.form.get('description','')
         exp = Expense(id=None, date=date, amount=amount, category=category, description=description)
         storage.add_expense(exp)

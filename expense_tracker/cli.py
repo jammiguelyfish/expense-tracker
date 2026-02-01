@@ -27,8 +27,21 @@ def cli(ctx, backend, path):
 @click.option('--description', default='')
 @click.pass_context
 def add(ctx, amount, category, date, description):
+    # Validate amount
+    if amount <= 0:
+        click.echo("Error: Amount must be a positive number.")
+        return
+    
+    # Validate date
     if date is None:
         date = datetime.utcnow().date().isoformat()
+    else:
+        try:
+            datetime.fromisoformat(date)
+        except ValueError:
+            click.echo("Error: Date must be in YYYY-MM-DD format.")
+            return
+    
     exp = Expense(id=None, date=date, amount=amount, category=category, description=description)
     saved = ctx.obj['storage'].add_expense(exp)
     click.echo(f"Added expense id={saved.id} amount={saved.amount} date={saved.date} category={saved.category}")
